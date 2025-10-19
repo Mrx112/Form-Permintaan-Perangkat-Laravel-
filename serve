@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+# Serve wrapper that suppresses E_DEPRECATED/E_USER_DEPRECATED warnings by
+# computing the numeric error_reporting mask at runtime and passing it to php -d.
+
+NUM=$(php -r 'echo (E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);')
+echo "Starting dev server with error_reporting=$NUM (deprecation notices suppressed)"
+php -d error_reporting=$NUM artisan serve "$@"
