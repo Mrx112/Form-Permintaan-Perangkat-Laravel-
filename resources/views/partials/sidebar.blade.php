@@ -1,4 +1,4 @@
-<aside class="w-64 min-h-screen p-4 bg-gradient-to-b from-gray-900 to-gray-800 text-white shadow-lg sidebar-glow">
+<aside class="w-64 flex flex-col self-stretch min-h-0 p-4 bg-gradient-to-b from-gray-900 to-gray-800 text-white shadow-lg sidebar-glow relative overflow-hidden">
     @php
         $user = auth()->user();
         $name = $user->name ?? 'Tamu';
@@ -45,6 +45,13 @@
     <div class="mt-auto pt-6">
         <div class="text-xs text-gray-400">© {{ date('Y') }} Sistem Permintaan</div>
     </div>
+    
+    {{-- decorative falling stars background --}}
+    <div class="sidebar-stars pointer-events-none" aria-hidden="true">
+        @for($i=0;$i<18;$i++)
+            <div class="star" style="left: {{ rand(0,100) }}%; animation-delay: {{ rand(0,1000)/1000 }}s; width: {{ rand(6,18) }}px; height: {{ rand(6,18) }}px;"></div>
+        @endfor
+    </div>
 </aside>
 
 <style>
@@ -57,5 +64,29 @@
     50%{ box-shadow: 0 8px 24px rgba(37,99,235,0.08); }
     100%{ box-shadow: 0 0 0 rgba(37,99,235,0.0); }
 }
+
+/* falling stars animation */
+.sidebar-stars{
+    position: absolute;
+    inset: 0 0 0 0;
+    z-index: 0;
+}
+.sidebar-stars .star{
+    position: absolute;
+    top: -10%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,0.6));
+    border-radius: 50%;
+    opacity: 0.9;
+    transform: translateY(-20px) rotate(0deg);
+    animation: fall 6s linear infinite;
+}
+@keyframes fall{
+    0%{ transform: translateY(-10%) rotate(0deg); opacity: 0.0; }
+    10%{ opacity: 0.9; }
+    100%{ transform: translateY(120%) rotate(360deg); opacity: 0.0; }
+}
+
+.sidebar-glow > *{ z-index: 2; }
+
 
 </style>

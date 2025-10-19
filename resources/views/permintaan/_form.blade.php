@@ -7,20 +7,20 @@
 <div class="space-y-4">
     <div>
         <label class="block text-sm font-medium text-gray-700">Judul</label>
-        <input name="judul" id="judul" value="{{ old('judul', $permintaan->judul ?? '') }}" class="mt-1 block w-full border rounded p-2" />
+    <input name="judul" id="judul" value="{{ old('judul', $permintaan->judul ?? '') }}" class="mt-1 block w-full border-gray-200 rounded-lg p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
         @error('judul')<div class="text-red-600 text-sm">{{ $message }}</div>@enderror
     </div>
 
     <div>
         <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
-        <textarea name="deskripsi" id="deskripsi" rows="6" class="mt-1 block w-full border rounded p-2">{{ old('deskripsi', $permintaan->deskripsi ?? '') }}</textarea>
+    <textarea name="deskripsi" id="deskripsi" rows="6" class="mt-1 block w-full border-gray-200 rounded-lg p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">{{ old('deskripsi', $permintaan->deskripsi ?? '') }}</textarea>
         @error('deskripsi')<div class="text-red-600 text-sm">{{ $message }}</div>@enderror
     </div>
 
     <div class="flex items-center gap-4">
         <div>
             <label class="block text-sm font-medium text-gray-700">Status</label>
-            <select name="status" id="status" class="mt-1 border rounded p-2">
+            <select name="status" id="status" class="mt-1 border-gray-200 rounded-lg p-2 shadow-sm">
                 @php $s = old('status', $permintaan->status ?? 'draft'); @endphp
                 <option value="draft" {{ $s=='draft'?'selected':'' }}>Draft</option>
                 <option value="pending" {{ $s=='pending'?'selected':'' }}>Pending</option>
@@ -47,27 +47,27 @@
 
         <div>
             <label class="block text-sm font-medium text-gray-700">Kuantitas</label>
-            <input type="number" name="quantity" min="1" value="{{ old('quantity', $permintaan->meta['quantity'] ?? 1) }}" class="mt-1 block w-full border rounded p-2" />
+            <input type="number" name="quantity" min="1" value="{{ old('quantity', $permintaan->meta['quantity'] ?? 1) }}" class="mt-1 block w-full border-gray-200 rounded-lg p-2 shadow-sm" />
         </div>
 
         <div>
             <label class="block text-sm font-medium text-gray-700">Tipe Hardware</label>
-            <input name="hardware_type" value="{{ old('hardware_type', $permintaan->hardware_type ?? '') }}" class="mt-1 block w-full border rounded p-2" />
+            <input name="hardware_type" value="{{ old('hardware_type', $permintaan->hardware_type ?? '') }}" class="mt-1 block w-full border-gray-200 rounded-lg p-2 shadow-sm" />
         </div>
 
         <div>
             <label class="block text-sm font-medium text-gray-700">Asset Tag / Serial</label>
-            <input name="asset_tag" value="{{ old('asset_tag', $permintaan->asset_tag ?? '') }}" class="mt-1 block w-full border rounded p-2" />
+            <input name="asset_tag" value="{{ old('asset_tag', $permintaan->asset_tag ?? '') }}" class="mt-1 block w-full border-gray-200 rounded-lg p-2 shadow-sm" />
         </div>
 
         <div>
             <label class="block text-sm font-medium text-gray-700">Lokasi</label>
-            <input name="location" value="{{ old('location', $permintaan->location ?? '') }}" class="mt-1 block w-full border rounded p-2" />
+            <input name="location" value="{{ old('location', $permintaan->location ?? '') }}" class="mt-1 block w-full border-gray-200 rounded-lg p-2 shadow-sm" />
         </div>
 
         <div>
             <label class="block text-sm font-medium text-gray-700">Estimasi Selesai</label>
-            <input type="date" name="estimated_completion" value="{{ old('estimated_completion', isset($permintaan->estimated_completion) ? $permintaan->estimated_completion->format('Y-m-d') : '') }}" class="mt-1 block w-full border rounded p-2" />
+            <input type="date" name="estimated_completion" value="{{ old('estimated_completion', isset($permintaan->estimated_completion) ? $permintaan->estimated_completion->format('Y-m-d') : '') }}" class="mt-1 block w-full border-gray-200 rounded-lg p-2 shadow-sm" />
         </div>
 
         <div class="col-span-2">
@@ -91,8 +91,8 @@
     </div>
 
     <div class="pt-4 flex gap-2">
-        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded">Simpan</button>
-        <a href="{{ route('permintaan.index') }}" class="px-4 py-2 bg-gray-200 rounded">Batal</a>
+        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Simpan</button>
+        <a href="{{ route('permintaan.index') }}" class="px-4 py-2 bg-gray-100 rounded-lg">Batal</a>
     </div>
 </div>
 

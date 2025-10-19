@@ -31,12 +31,12 @@
             </div>
         </header>
 
-        <div class="flex flex-1">
+        <div class="flex flex-1 min-h-0">
             @auth
                 @include('partials.sidebar')
             @endauth
 
-            <main class="flex-1 py-6">
+            <main class="flex-1 py-6 min-h-0 overflow-auto">
                 <div class="max-w-6xl mx-auto px-4">
                     @if(session('success'))
                         <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">{{ session('success') }}</div>
@@ -47,7 +47,7 @@
             </main>
         </div>
 
-        <footer class="bg-white border-t mt-6">
+        <footer class="bg-white border-t">
             <div class="max-w-6xl mx-auto px-4 py-4 text-sm text-gray-600">
                 <div class="flex items-center justify-between">
                     <div>© {{ date('Y') }} Sistem Permintaan - IT Hardware</div>
@@ -56,5 +56,43 @@
             </div>
         </footer>
     </div>
+
+    {{-- global loading overlay --}}
+    <div id="global-loader" class="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="text-center">
+            <div class="mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 animate-pulse flex items-center justify-center shadow-lg">
+                <img src="{{ asset('favicon.ico') }}" alt="logo" class="w-10 h-10" />
+            </div>
+            <div class="text-gray-700 font-medium">Memuat...</div>
+        </div>
+    </div>
+
+    <script>
+        // Show loader on internal navigation (links/forms)
+        (function(){
+            const loader = document.getElementById('global-loader');
+            function show(){ loader.classList.remove('hidden'); loader.classList.add('flex'); }
+            function hide(){ loader.classList.remove('flex'); loader.classList.add('hidden'); }
+
+            // Intercept clicks on same-origin links
+            document.addEventListener('click', function(e){
+                const a = e.target.closest('a');
+                if (!a) return;
+                const href = a.getAttribute('href');
+                if (!href) return;
+                // ignore external links or anchors
+                if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) return;
+                show();
+            });
+
+            // Show on forms submit
+            document.addEventListener('submit', function(e){ show(); });
+
+            // Hide loader after window load (in case it was shown during initial navigation)
+            window.addEventListener('load', hide);
+            // Also hide after 10s as fallback
+            setTimeout(hide, 10000);
+        })();
+    </script>
 </body>
 </html>
